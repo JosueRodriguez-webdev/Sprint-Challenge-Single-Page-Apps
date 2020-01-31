@@ -1,7 +1,7 @@
 import React from "react";
 import CharacterList from "./CharacterList";
 import WelcomePage from "./WelcomePage";
-import { Route, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -10,13 +10,6 @@ export default function Header() {
 
       <NavLink to="/">Home</NavLink>
       <NavLink to="/characters">Characters</NavLink>
-
-      <Route exact path="/">
-        <WelcomePage />
-      </Route>
-      <Route path="/characters">
-        <CharacterList />
-      </Route>
     </header>
   );
 }

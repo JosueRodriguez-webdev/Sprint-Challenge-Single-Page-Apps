@@ -3,16 +3,24 @@ import React, { useState } from "react";
 export default function SearchForm() {
   const [search, setState] = useState("");
 
-  const preventD = (e) => {
-    e.preventDefault();
+  const preventD = (event) => {
+    event.preventDefault();
+  };
+
+  const handleChange = (event) => {
+    setState(event.target.value);
   };
 
   return (
     <section className="search-form">
-      <from onSubmit={preventD}>
+      <form onSubmit={preventD}>
         Search:
-        <input />
-      </from>
+        <input
+          placeholder="Boba fet🔎"
+          onChange={handleChange}
+          value={search}
+        />
+      </form>
     </section>
   );
 }

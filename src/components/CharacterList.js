@@ -22,7 +22,9 @@ export default function CharacterList() {
   return (
     <section className="character-list">
       {characters.map((characterInfo) => {
-        return <CharacterCard characterInfo={characterInfo} />;
+        return (
+          <CharacterCard key={characterInfo.id} characterInfo={characterInfo} />
+        );
       })}
     </section>
   );
