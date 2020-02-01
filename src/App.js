@@ -14,7 +14,6 @@ export default function App() {
         <WelcomePage />
       </Route>
       <Route path="/characters">
-        <SearchForm />
         <CharacterList />
       </Route>
     </main>

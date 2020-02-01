@@ -11,7 +11,7 @@ export default function CharacterList() {
     axios
       .get(`https://rickandmortyapi.com/api/character/`)
       .then((response) => {
-        console.log(`Success! you got a response`, response);
+        console.log(`Success! you got a response`, response.data.results);
         setCharacters(response.data.results);
       })
       .catch((error) => {
@@ -19,8 +19,13 @@ export default function CharacterList() {
       });
   }, []);
 
+  const names = characters.forEach((name) => {
+    return name.name;
+  });
+
   return (
     <section className="character-list">
+      <SearchForm names={names} />
       {characters.map((characterInfo) => {
         return (
           <CharacterCard key={characterInfo.id} characterInfo={characterInfo} />
