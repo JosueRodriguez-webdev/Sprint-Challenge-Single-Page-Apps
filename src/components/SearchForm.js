@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import CharacterCard from "./CharacterCard";
+import axios from "axios";
 
 export default function SearchForm(props) {
+  const [search, setState] = useState();
+
   console.log(props);
 
-  const [search, setState] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  useEffect(() => {
+    props.setSearchResults(
+      props.characters.filter((item) => {
+        return item.name.toLowerCase().includes(search);
+      })
+    );
+  }, [search]);
 
   const preventD = (event) => {
     event.preventDefault();
@@ -15,16 +23,9 @@ export default function SearchForm(props) {
     setState(event.target.value);
   };
 
-  // useEffect(() => {
-  //   const results = INSERTDATANAME.filter((person) =>
-  //     person.toLowerCase().includes(search)
-  //   );
-  //   setSearchResults(results);
-  // }, [search]);
-
   return (
     <section className="search-form">
-      <form onSubmit={preventD}>
+      <form>
         <label htmlFor="search"></label>
         Search:
         <input
@@ -34,9 +35,6 @@ export default function SearchForm(props) {
           value={search}
         />
       </form>
-      {searchResults.map((item) => {
-        return <CharacterCard item={item} />;
-      })}
     </section>
   );
 }

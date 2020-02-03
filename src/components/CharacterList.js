@@ -6,6 +6,7 @@ import SearchForm from "./SearchForm";
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     axios
@@ -19,18 +20,37 @@ export default function CharacterList() {
       });
   }, []);
 
-  const names = characters.forEach((name) => {
-    return name.name;
-  });
+  if (searchResults.length === 0) {
+    return (
+      <section className="character-list">
+        <SearchForm
+          characters={characters}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+        />
+        {characters.map((characterInfo) => {
+          return (
+            <CharacterCard
+              key={characterInfo.id}
+              characterInfo={characterInfo}
+            />
+          );
+        })}
+      </section>
+    );
+  } else {
+    return (
+      <section className="character-list">
+        <SearchForm
+          characters={characters}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+        />
 
-  return (
-    <section className="character-list">
-      <SearchForm names={names} />
-      {characters.map((characterInfo) => {
-        return (
-          <CharacterCard key={characterInfo.id} characterInfo={characterInfo} />
-        );
-      })}
-    </section>
-  );
+        {searchResults.map((item) => (
+          <CharacterCard characterInfo={item} />
+        ))}
+      </section>
+    );
+  }
 }
